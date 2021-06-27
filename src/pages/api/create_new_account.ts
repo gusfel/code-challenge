@@ -18,14 +18,31 @@ async function checkPassword(text: string) {
   return await response.json();
 }
 
+const checkUN = str => {
+  let validUN = new RegExp("(?=.{10,50})")
+  return validUN.test(str)
+}
+
+const checkPW = str => {
+  let validPW = new RegExp("^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[!@#\$%])(?=.{20,50})")
+  return validPW.test(str)
+}
 
 export default function createNewAccount(req: NextApiRequest, res: NextApiResponse<BooleanResult>) {
   const userName = JSON.parse(req.body).userName
   const password = JSON.parse(req.body).password
   checkPassword(password)
     .then(resp => {
-      console.log(resp)
+      if(resp.result) {
+        res.status(200).json({ result: false });
+      } else {
+        if (checkPW(password) && checkUN(userName)) {
+          res.status(200).json({ result: true });
+        } else {
+          res.status(200).json({ result: false })
+        }
+      }
     })
 
-  res.status(200).json({ result: true });
+
 }
