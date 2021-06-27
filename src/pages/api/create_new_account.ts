@@ -7,7 +7,7 @@ interface CreateNewAccountParameters {
 
 interface BooleanResult {
   result: boolean;
-  errors?: Record<string, string>;
+  errors?: string;
 }
 
 async function checkPassword(text: string) {
@@ -19,29 +19,40 @@ async function checkPassword(text: string) {
 }
 
 const checkUN = str => {
-  let validUN = new RegExp("(?=.{10,50})")
-  return validUN.test(str)
+  let validUN = new RegExp("^(?=.*[a-zA-z])(?=.{10,50}$)")
+  return validUN.test(str);
 }
 
 const checkPW = str => {
-  let validPW = new RegExp("^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[!@#\$%])(?=.{20,50})")
-  return validPW.test(str)
+  let validPW = new RegExp("^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[!@#\$%])(?=.{20,50}$)")
+  return validPW.test(str);
 }
 
+
 export default function createNewAccount(req: NextApiRequest, res: NextApiResponse<BooleanResult>) {
-  const userName = JSON.parse(req.body).userName
-  const password = JSON.parse(req.body).password
+  const userName = JSON.parse(req.body).userName;
+  const password = JSON.parse(req.body).password;
   checkPassword(password)
     .then(resp => {
       if(resp.result) {
-        res.status(200).json({ result: false });
+        res.status(400).json({ result: false, errors: 'weak' });
       } else {
         if (checkPW(password) && checkUN(userName)) {
-          res.status(200).json({ result: true });
-        } else {
-          res.status(200).json({ result: false })
+          res.status(200).json({ result: true, errors:'' });
+        }
+        if (!checkPW(password) && !checkUN(userName)) {
+          res.status(400).json({ result: false, errors: 'pw&un' });
+        }
+        if (!checkPW(password)) {
+          res.status(400).json({ result: false, errors: 'pw' });
+        }
+        if (!checkUN(userName)) {
+          res.status(400).json({ result: false, errors: 'un' });
         }
       }
+    })
+    .catch(resp => {
+      console.log('error');
     })
 
 

@@ -5,6 +5,7 @@ import styles from 'src/styles/create_account.module.scss';
 export default function CreateAccount() {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
+  const [status, setStatus] = useState('');
   async function handleSubmit(evt: FormEvent) {
     evt.preventDefault();
     const response = await fetch('/api/create_new_account', {
@@ -12,7 +13,9 @@ export default function CreateAccount() {
       body: JSON.stringify({userName, password}),
     });
 
-    console.log(await response.json());
+
+    const result = await response.json()
+    setStatus(result.errors);
   }
 
   return (
@@ -43,6 +46,11 @@ export default function CreateAccount() {
             </label>
             <input type="submit" value="Create Account" />
         </form>
+        {status.length ?
+          <div>false</div>
+          :
+          <></>
+        }
       </article>
     </>
   );
