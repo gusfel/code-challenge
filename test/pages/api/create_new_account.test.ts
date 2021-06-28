@@ -13,7 +13,6 @@ describe('/api/create_new_account', () => {
     });
 
     await createNewAccount(req, res);
-    console.log('json',res._getJSONData())
     expect(res._getStatusCode()).toBe(200);
     expect(res._getJSONData()).toEqual({
       result: true,
