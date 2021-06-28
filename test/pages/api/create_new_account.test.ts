@@ -9,7 +9,7 @@ describe('/api/create_new_account', () => {
       body: {
         userName: 'testtest1234',
         password: '1!abcdefghijklmnopqrst'
-    },
+      },
     });
 
     await createNewAccount(req, res);

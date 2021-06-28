@@ -23,7 +23,7 @@ export default function CreateAccount() {
 
   const handleError = (error: string) => {
     if (error ===  'pw&un' || error === 'un&exp' || error === 'un') {
-      setUNError('Invalid username. Username must be at least 10 characters long.');
+      setUNError('Invalid username. Username must be at least 10 characters.');
     }
     if (error === 'pw&un' || error === 'pw') {
       setPWError('Invalid password. Password must be at least 20 characters and contain at least 1 letter, 1 number, and 1 symbol (!@#$%).');

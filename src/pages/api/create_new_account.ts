@@ -58,5 +58,4 @@ export default async function createNewAccount(req: NextApiRequest, res: NextApi
       res.status(500)
     })
   res.status(200).json(testResults);
-
 }
