@@ -10,7 +10,7 @@ export default function CreateAccount() {
     evt.preventDefault();
     const response = await fetch('/api/create_new_account', {
       method: 'POST',
-      body: JSON.stringify({userName, password}),
+      body: JSON.stringify({ userName, password }),
     });
 
 
@@ -24,33 +24,36 @@ export default function CreateAccount() {
         <title>Create Account</title>
       </Head>
       <article className={styles.article}>
-        Create New Account
         <form className={styles.form} onSubmit={handleSubmit}>
+          <img id={styles.logo} src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Wealthfront_Logo.svg/1200px-Wealthfront_Logo.svg.png"></img>
+          <h2 id={styles.h2}>Create New Account</h2>
           <label>
-            Username:
+            <span className={styles.inputName}>Username:</span>
             <input
               type="text"
               name="userName"
               value={userName}
               onChange={e => setUserName(e.target.value)}
+              className={styles.input}
             />
-            </label>
-            <label>
-              Password:
+          </label>
+          <label>
+            <span className={styles.inputName}>Password:</span>
             <input
               type="text"
               name="password"
               value={password}
               onChange={e => setPassword(e.target.value)}
+              className={styles.input}
             />
-            </label>
-            <input type="submit" value="Create Account" />
+          </label>
+          <input id={styles.submit} type="submit" value="Create Account" />
+          {status.length ?
+            <div>false</div>
+            :
+            <></>
+          }
         </form>
-        {status.length ?
-          <div>false</div>
-          :
-          <></>
-        }
       </article>
     </>
   );

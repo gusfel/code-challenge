@@ -14,3 +14,46 @@
   border-radius: 16px;
   background: #fff;
 }
+
+#h2 {
+  font-family: "Calibre", Helvetica, Arial, sans-serif;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.input {
+  border: none;
+  border-bottom: 2px solid lightgray;
+  display: block;
+  margin-bottom: 20px;
+  height: 40px;
+  font-family: "Calibre", Helvetica, Arial, sans-serif;
+  font-size: 25px;
+  outline: none;
+}
+
+.inputName {
+  color: grey;
+  font-family: "Calibre", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+}
+
+#submit {
+  background-color: #4840bb;
+  color: white;
+  font-family: "Calibre", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  width: 350px;
+  text-align: center;
+  border-radius: 16px;
+  border: none;
+  height: 50px;
+  cursor: pointer;
+}
+
+#logo {
+  width: 40px;
+  display: block;
+  margin: auto;
+}

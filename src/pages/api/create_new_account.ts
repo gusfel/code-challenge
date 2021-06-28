@@ -35,7 +35,7 @@ export default function createNewAccount(req: NextApiRequest, res: NextApiRespon
   checkPassword(password)
     .then(resp => {
       if(resp.result) {
-        res.status(400).json({ result: false, errors: 'weak' });
+        res.status(400).json({ result: false, errors: 'exposed' });
       } else {
         if (checkPW(password) && checkUN(userName)) {
           res.status(200).json({ result: true, errors:'' });
