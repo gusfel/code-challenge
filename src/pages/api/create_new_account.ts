@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 interface CreateNewAccountParameters {
-  username: string;
+  userName: string;
   password: string;
 }
 
@@ -30,12 +30,17 @@ const checkPW = str => {
 
 
 export default function createNewAccount(req: NextApiRequest, res: NextApiResponse<BooleanResult>) {
-  const userName = JSON.parse(req.body).userName;
-  const password = JSON.parse(req.body).password;
+  const { userName }: CreateNewAccountParameters = JSON.parse(req.body);
+  const { password }: CreateNewAccountParameters = JSON.parse(req.body);
+  console.log(userName, password)
   checkPassword(password)
     .then(resp => {
       if(resp.result) {
-        res.status(400).json({ result: false, errors: 'exposed' });
+        if (!checkUN(userName)) {
+          res.status(400).json({ result: false, errors: 'un&exp' });
+        } else {
+          res.status(400).json({ result: false, errors: 'exposed' });
+        }
       } else {
         if (checkPW(password) && checkUN(userName)) {
           res.status(200).json({ result: true, errors:'' });
@@ -46,9 +51,7 @@ export default function createNewAccount(req: NextApiRequest, res: NextApiRespon
         if (!checkPW(password)) {
           res.status(400).json({ result: false, errors: 'pw' });
         }
-        if (!checkUN(userName)) {
-          res.status(400).json({ result: false, errors: 'un' });
-        }
+
       }
     })
     .catch(resp => {

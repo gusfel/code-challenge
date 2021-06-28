@@ -26,10 +26,10 @@
   border: none;
   border-bottom: 2px solid lightgray;
   display: block;
-  margin-bottom: 20px;
-  height: 40px;
+  height: 35px;
+  width: 350px;
   font-family: "Calibre", Helvetica, Arial, sans-serif;
-  font-size: 25px;
+  font-size: 20px;
   outline: none;
 }
 
@@ -56,4 +56,16 @@
   width: 40px;
   display: block;
   margin: auto;
+}
+
+.alert {
+  color: red;
+  font-family: "Calibre", Helvetica, Arial, sans-serif;
+  font-size: 10px;
+  margin: 7px auto;
+}
+
+.spaceSaver {
+  height: 25px;
+
 }
