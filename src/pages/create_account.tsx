@@ -21,7 +21,7 @@ export default function CreateAccount() {
     handleError(result.errors)
   }
 
-  const handleError = error => {
+  const handleError = (error: string) => {
     if (error ===  'pw&un' || error === 'un' || error === 'un&exp') {
       setUNError('Invalid username. Username must be at least 10 characters long.');
     }

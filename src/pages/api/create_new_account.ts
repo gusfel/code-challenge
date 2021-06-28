@@ -18,12 +18,12 @@ async function checkPassword(text: string) {
   return await response.json();
 }
 
-const checkUN = str => {
+const checkUN = (str: string) => {
   let validUN = new RegExp("^(?=.*[a-zA-z])(?=.{10,50}$)")
   return validUN.test(str);
 }
 
-const checkPW = str => {
+const checkPW = (str: string) => {
   let validPW = new RegExp("^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[!@#\$%])(?=.{20,50}$)")
   return validPW.test(str);
 }
@@ -37,26 +37,26 @@ export default function createNewAccount(req: NextApiRequest, res: NextApiRespon
     .then(resp => {
       if(resp.result) {
         if (!checkUN(userName)) {
-          res.status(400).json({ result: false, errors: 'un&exp' });
+          res.status(200).json({ result: false, errors: 'un&exp' });
         } else {
-          res.status(400).json({ result: false, errors: 'exposed' });
+          res.status(200).json({ result: false, errors: 'exposed' });
         }
       } else {
         if (checkPW(password) && checkUN(userName)) {
           res.status(200).json({ result: true, errors:'' });
         }
         if (!checkPW(password) && !checkUN(userName)) {
-          res.status(400).json({ result: false, errors: 'pw&un' });
+          res.status(200).json({ result: false, errors: 'pw&un' });
+        }
+        if (!checkUN(userName)) {
+          res.status(200).json({ result: false, errors: 'un' });
         }
         if (!checkPW(password)) {
-          res.status(400).json({ result: false, errors: 'pw' });
+          res.status(200).json({ result: false, errors: 'pw' });
         }
-
       }
     })
     .catch(resp => {
-      console.log('error');
+      res.status(500)
     })
-
-
 }
