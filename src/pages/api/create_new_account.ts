@@ -28,35 +28,62 @@ const checkPW = (str: string) => {
   return validPW.test(str);
 }
 
-
-export default function createNewAccount(req: NextApiRequest, res: NextApiResponse<BooleanResult>) {
+export default async function createNewAccount(req: NextApiRequest, res: NextApiResponse<BooleanResult>) {
   const { userName }: CreateNewAccountParameters = JSON.parse(req.body);
   const { password }: CreateNewAccountParameters = JSON.parse(req.body);
-  console.log(userName, password)
-  checkPassword(password)
+  const testResults = await checkPassword(password)
     .then(resp => {
       if(resp.result) {
         if (!checkUN(userName)) {
-          res.status(200).json({ result: false, errors: 'un&exp' });
+          return { result: false, errors: 'un&exp' };
         } else {
-          res.status(200).json({ result: false, errors: 'exposed' });
+          return { result: false, errors: 'exposed' };
         }
       } else {
         if (checkPW(password) && checkUN(userName)) {
-          res.status(200).json({ result: true, errors:'' });
+          return { result: true, errors: '' };
         }
         if (!checkPW(password) && !checkUN(userName)) {
-          res.status(200).json({ result: false, errors: 'pw&un' });
+          return { result: false, errors: 'pw&un' };
         }
         if (!checkUN(userName)) {
-          res.status(200).json({ result: false, errors: 'un' });
+          return { result: false, errors: 'un' };
         }
         if (!checkPW(password)) {
-          res.status(200).json({ result: false, errors: 'pw' });
+          return { result: false, errors: 'pw' };
         }
       }
     })
     .catch(resp => {
       res.status(500)
     })
+  res.status(200).json(testResults)
 }
+
+
+// checkPassword(password)
+// .then(resp => {
+//   if(resp.result) {
+//     if (!checkUN(userName)) {
+//       res.status(200).json({ result: false, errors: 'un&exp' });
+//     } else {
+//       res.status(200).json({ result: false, errors: 'exposed' });
+//     }
+//   } else {
+//     if (checkPW(password) && checkUN(userName)) {
+//       res.status(200).json({ result: true, errors: '' });
+//     }
+//     if (!checkPW(password) && !checkUN(userName)) {
+//       res.status(200).json({ result: false, errors: 'pw&un' });
+//     }
+//     if (!checkUN(userName)) {
+//       res.status(200).json({ result: false, errors: 'un' });
+//     }
+//     if (!checkPW(password)) {
+//       res.status(200).json({ result: false, errors: 'pw' });
+//     }
+//   }
+// })
+// .catch(resp => {
+//   res.status(500)
+// })

@@ -6,14 +6,35 @@ describe('/api/create_new_account', () => {
   test('returns true', async () => {
     const { req, res } = mockRequest({
       method: 'POST',
-      body: {},
+      body: {
+        userName: 'testtest1234',
+        password: '1!abcdefghijklmnopqrst'
+    },
     });
 
-    await createNewAccount(req, res);
-
+    const test = await createNewAccount(req, res);
+    console.log(test)
+    console.log(res._getJSONData())
     expect(res._getStatusCode()).toBe(200);
     expect(res._getJSONData()).toEqual({
       result: true,
+      errors: ''
     });
   });
 });
+// const { req, res } = mockRequest({
+//   method: 'POST',
+//   body: {
+//     userName: 'testtest1234',
+//     password: '1!abcdefghijklmnopqrst'
+// },
+// });
+
+// await createNewAccount(req, res);
+// console.log(res._getJSONData())
+// expect(res._getStatusCode()).toBe(200);
+// expect(res._getJSONData()).toEqual({
+//   result: true,
+//   errors: ''
+// });
+// });

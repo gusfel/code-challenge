@@ -17,19 +17,29 @@ export default function CreateAccount() {
       body: JSON.stringify({ userName, password }),
     });
     const result = await response.json()
-    setStatus(result.errors);
-    handleError(result.errors)
+    handleError(result.errors);
   }
 
+
   const handleError = (error: string) => {
-    if (error ===  'pw&un' || error === 'un' || error === 'un&exp') {
+    if (error ===  'pw&un' || error === 'un&exp' || error === 'un') {
       setUNError('Invalid username. Username must be at least 10 characters long.');
     }
     if (error === 'pw&un' || error === 'pw') {
       setPWError('Invalid password. Password must be at least 20 characters and contain at least 1 letter, 1 number, and 1 symbol (!@#$%).');
     }
-    if (status ===  'exposed' || status === 'un&exp') {
-      setPWError('Your password has been exposed, please set a new one.')
+    if (error ===  'exposed' || error === 'un&exp') {
+      setPWError('Your password has been exposed, please set a new one.');
+    }
+    if (error === 'un') {
+      setPWError('');
+    }
+    if (error === 'pw') {
+      setUNError('');
+    }
+    if (error === '') {
+      setPWError('');
+      setUNError('');
     }
   }
 
