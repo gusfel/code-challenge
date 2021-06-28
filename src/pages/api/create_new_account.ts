@@ -57,33 +57,6 @@ export default async function createNewAccount(req: NextApiRequest, res: NextApi
     .catch(resp => {
       res.status(500)
     })
-  res.status(200).json(testResults)
+  res.status(200).json(testResults);
+
 }
-
-
-// checkPassword(password)
-// .then(resp => {
-//   if(resp.result) {
-//     if (!checkUN(userName)) {
-//       res.status(200).json({ result: false, errors: 'un&exp' });
-//     } else {
-//       res.status(200).json({ result: false, errors: 'exposed' });
-//     }
-//   } else {
-//     if (checkPW(password) && checkUN(userName)) {
-//       res.status(200).json({ result: true, errors: '' });
-//     }
-//     if (!checkPW(password) && !checkUN(userName)) {
-//       res.status(200).json({ result: false, errors: 'pw&un' });
-//     }
-//     if (!checkUN(userName)) {
-//       res.status(200).json({ result: false, errors: 'un' });
-//     }
-//     if (!checkPW(password)) {
-//       res.status(200).json({ result: false, errors: 'pw' });
-//     }
-//   }
-// })
-// .catch(resp => {
-//   res.status(500)
-// })

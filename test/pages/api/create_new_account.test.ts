@@ -12,9 +12,8 @@ describe('/api/create_new_account', () => {
     },
     });
 
-    const test = await createNewAccount(req, res);
-    console.log(test)
-    console.log(res._getJSONData())
+    await createNewAccount(req, res);
+    console.log('json',res._getJSONData())
     expect(res._getStatusCode()).toBe(200);
     expect(res._getJSONData()).toEqual({
       result: true,
@@ -22,19 +21,3 @@ describe('/api/create_new_account', () => {
     });
   });
 });
-// const { req, res } = mockRequest({
-//   method: 'POST',
-//   body: {
-//     userName: 'testtest1234',
-//     password: '1!abcdefghijklmnopqrst'
-// },
-// });
-
-// await createNewAccount(req, res);
-// console.log(res._getJSONData())
-// expect(res._getStatusCode()).toBe(200);
-// expect(res._getJSONData()).toEqual({
-//   result: true,
-//   errors: ''
-// });
-// });
