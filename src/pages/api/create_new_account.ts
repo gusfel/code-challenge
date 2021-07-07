@@ -19,12 +19,12 @@ async function checkPassword(text: string) {
 }
 
 const checkUN = (str: string) => {
-  let validUN = new RegExp("^(?=.*[a-zA-z])(?=.{10,50}$)")
+  let validUN = new RegExp("^(?=.*[a-zA-z])(?=.{10,50}$)");
   return validUN.test(str);
 }
 
 const checkPW = (str: string) => {
-  let validPW = new RegExp("^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[!@#\$%])(?=.{20,50}$)")
+  let validPW = new RegExp("^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[!@#\$%])(?=.{20,50}$)");
   return validPW.test(str);
 }
 
